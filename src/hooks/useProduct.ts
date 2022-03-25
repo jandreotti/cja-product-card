@@ -5,6 +5,13 @@ import {
   Product,
 } from '../interfaces/ProductInterfaces';
 
+interface useProductArgs {
+  product: Product;
+  onChange?: (args: onChangeArgs) => void;
+  value?: number;
+  initialValues?: InitialValuesInterface;
+}
+
 // FUNCION MARAVILLA
 interface useProductArgs {
   product: Product;
@@ -31,12 +38,7 @@ export const useProduct = ({
   //! Me permite crear un objeto que va a sobrevivir diferentes refresh del mismo componente o hook
   const isMounted = useRef(false);
 
-  //! USE EFFECT que evalua el isMounted. una vez que el componente esta montado se cambia a true
-  useEffect(() => {
-    isMounted.current = true;
-  }, []);
-
-  // USE EFFECT. Este use effect es el que se ejecuta cuando cambia el value en otro componente del mismo producto.
+  //! USE EFFECT. Este use effect es el que se ejecuta cuando cambia el value en otro componente del mismo producto.
   useEffect(() => {
     //el value que recibo aqui es el nuevo valor que deberia tener el state
 
@@ -46,6 +48,11 @@ export const useProduct = ({
     }
     setCounter(value);
   }, [value]);
+
+  //! USE EFFECT que evalua el isMounted. una vez que el componente esta montado se cambia a true
+  useEffect(() => {
+    isMounted.current = true;
+  }, []);
 
   // FUNCION
   const increasedBy = (value: number) => {
@@ -87,7 +94,7 @@ export const useProduct = ({
     increasedBy,
     maxCount: initialValues?.maxCount,
     isMaxCountReached:
-      !!initialValues?.maxCount && counter >= initialValues?.maxCount,
+      !!initialValues?.count && initialValues.maxCount === counter, // !!initialValues?.maxCount && counter >= initialValues?.maxCount,
     reset,
   };
 };
