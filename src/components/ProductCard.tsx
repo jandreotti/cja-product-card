@@ -1,7 +1,9 @@
 import styles from '../styles/styles.module.css';
 
 import { createContext, CSSProperties } from 'react';
-import { useProduct } from '../hooks/useProduct';
+import { 
+  useProduct 
+} from '../hooks/useProduct';
 import {
   InitialValuesInterface,
   onChangeArgs,
